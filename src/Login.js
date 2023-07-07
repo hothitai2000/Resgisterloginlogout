@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
-    const [username, usernameupdate] = useState('');
-    const [password, passwordupdate] = useState('');
+    const [username, usernameupdate] = useState("");
+    const [password, passwordupdate] = useState("");
 
     const usenavigate=useNavigate();
 
     useEffect(()=>{
-sessionStorage.clear();
+sessionStorage.clear(); ///Remove all local storage items:
     },[]);
 
     const ProceedLogin = (e) => {
@@ -17,7 +17,7 @@ sessionStorage.clear();
         if (validate()) {
             ///implentation
             // console.log('proceed');
-            fetch("http://localhost:8000/user/" + username).then((res) => {
+            fetch("http://localhost:3000/user/" + username).then((res) => {
                 return res.json();
             }).then((resp) => {
                 //console.log(resp)
@@ -42,11 +42,8 @@ sessionStorage.clear();
     const ProceedLoginusingAPI = (e) => {
         e.preventDefault();
         if (validate()) {
-            ///implentation
-            // console.log('proceed');
-            let inputobj={"username": username,
-            "password": password};
-            fetch("https://localhost:44308/User/Authenticate",{
+            let inputobj={"username": username, "password": password};
+            fetch("hhttp://localhost:3000/user/Authenticate",{
                 method:'POST',
                 headers:{'content-type':'application/json'},
                 body:JSON.stringify(inputobj)
@@ -62,17 +59,7 @@ sessionStorage.clear();
                      sessionStorage.setItem('jwttoken',resp.jwtToken);
                    usenavigate('/')
                 }
-                // if (Object.keys(resp).length === 0) {
-                //     toast.error('Please Enter valid username');
-                // } else {
-                //     if (resp.password === password) {
-                //         toast.success('Success');
-                //         sessionStorage.setItem('username',username);
-                //         usenavigate('/')
-                //     }else{
-                //         toast.error('Please Enter valid credentials');
-                //     }
-                // }
+             
             }).catch((err) => {
                 toast.error('Login Failed due to :' + err.message);
             });

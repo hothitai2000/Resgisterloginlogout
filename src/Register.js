@@ -12,9 +12,9 @@ const Register = () => {
     const [country, countrychange] = useState("india");
     const [address, addresschange] = useState("");
     const [gender, genderchange] = useState("female");
-
+    
     const navigate = useNavigate();
-
+    
     const IsValidate = () => {
         let isproceed = true;
         let errormessage = 'Please enter the value in ';
@@ -24,7 +24,7 @@ const Register = () => {
         }
         if (name === null || name === '') {
             isproceed = false;
-            errormessage += ' Fullname';
+            errormessage += ' Fullname';// nối chuỗi
         }
         if (password === null || password === '') {
             isproceed = false;
@@ -47,14 +47,12 @@ const Register = () => {
         }
         return isproceed;
     }
-
-
     const handlesubmit = (e) => {
             e.preventDefault();
             let regobj = { id, name, password, email, phone, country, address, gender };
             if (IsValidate()) {
             //console.log(regobj);
-            fetch("http://localhost:8000/user", {
+            fetch("http://localhost:3000/user", {
                 method: "POST",
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(regobj)
@@ -144,10 +142,7 @@ const Register = () => {
                     </div>
                 </form>
             </div>
-
-
         </div>
     );
 }
-
 export default Register;
